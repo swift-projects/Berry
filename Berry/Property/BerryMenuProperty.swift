@@ -40,7 +40,7 @@ public struct BerryMenuProperty {
         
         var font: UIFont
         if #available(iOS 8.2, *) {
-            font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+            font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
         } else {
             font = UIFont(name: "System-Medium", size: 16)!
         }

@@ -11,7 +11,7 @@ import UIKit
 public typealias SelectRowsAtIndexPathClosure = ((_ index: (column: Int, row: Int)) -> ())
 
 public class BerryView: UIView {
-
+    
     public var didSelectedRowsAtIndexPath: SelectRowsAtIndexPathClosure?
     
     public var isShown: Bool = false
@@ -125,7 +125,7 @@ public class BerryView: UIView {
     /// This method can used to create Berry menu, but the columns of this menu just can be only **1**
     ///
     /// - parameter navigationController: UINavigationController will changed when menu was selected
-    /// - parameter containerView: 
+    /// - parameter containerView:
     /// - parameter selectedIndex: The index of the menu which is selected
     /// - parameter items: Menu items
     /// - parameter config: BerryConfig default is **BerryConfig.default()**
@@ -160,7 +160,7 @@ public class BerryView: UIView {
         let title = items[selectedIndex.first ?? 0].title
         
         // Title size
-        let titleSize = (title as NSString).size(attributes: [NSFontAttributeName: berryConfig.menuProperty.menuTitleFont])
+        let titleSize = (title as NSString).size(withAttributes: [NSAttributedStringKey.font: berryConfig.menuProperty.menuTitleFont])
         
         var arrowImage = UIImage()
         
@@ -261,7 +261,7 @@ public class BerryView: UIView {
         }
         
         menuWrapper.frame.origin.y = containerView.frame.origin.y == 0 ? (navigationController?.navigationBar.frame.maxY ?? 64.0) : 0.0
-        tableViews.forEach { (_, tableView) in
+        tableViews.forEach { let (_, tableView) = $0;
             tableView.reloadData()
         }
     }
@@ -270,7 +270,7 @@ public class BerryView: UIView {
     
     fileprivate func setupDefaultConfiguration() {
         
-        menuTitleColor = navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
+        menuTitleColor = navigationController?.navigationBar.titleTextAttributes?[NSAttributedStringKey.foregroundColor.rawValue] as? UIColor
         cellBackgroundColor = navigationController?.navigationBar.barTintColor
         cellTextColor = menuTitleColor
         cellSeparatorColor = .clear
@@ -348,7 +348,7 @@ public class BerryView: UIView {
                        options: UIViewAnimationOptions(), animations: {
                         self.tableViewContainerView.frame.origin.y = y
                         self.backgroundView.alpha = 0
-                        self.tableViews.forEach({ (_, tableView) in
+                        self.tableViews.forEach({ let (_, tableView) = $0;
                             tableView.alpha = 0
                         })
         }) { finished in
@@ -386,7 +386,7 @@ public class BerryView: UIView {
                        options: UIViewAnimationOptions(), animations: {
                         self.tableViewContainerView.frame.origin.y = y
                         self.backgroundView.alpha = self.berryConfig.maskProperty.maskBackgroundOpacity
-                        self.tableViews.forEach({ (_, tableView) in
+                        self.tableViews.forEach({ let (_, tableView) = $0;
                             tableView.alpha = 1
                         })
         }) { finished in
@@ -432,7 +432,7 @@ public class BerryView: UIView {
                 
                 guard let `self` = self else { return }
                 
-                if let closure = self.didSelectedRowsAtIndexPath { closure(column: index, row: selectedRowIndex) }
+                if let closure = self.didSelectedRowsAtIndexPath { closure((column: index, row: selectedRowIndex)) }
                 
                 // If the count of menu's column is one, hide menu automatically
                 if self.berryConfig.menuProperty.menuColumns == 1 {
@@ -481,7 +481,7 @@ public class BerryView: UIView {
             return toolBar == nil ? 0.0 : 44.0
         }
     }
-
+    
 }
 
 extension UIViewController {
